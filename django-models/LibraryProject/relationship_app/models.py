@@ -2,32 +2,32 @@ from django.db import models
 
 # Create your models here.
 
-class Author(models.Model):
+class Author_Model(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
     
 
-class Book(models.Model):
+class Book_Model(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, on_delete = models.CASCADE, related_name = "books")
+    author = models.ForeignKey(Author_Model, on_delete = models.CASCADE, related_name = "book_models")
 
     def __str__(self):
         return self.title
     
 
-class Library(models.Model):
+class Library_Model(models.Model):
     name = models.CharField(max_length=200)
-    books = models.ManyToManyField(Book,related_name="librarys")
+    books = models.ManyToManyField(Book_Model,related_name="library_models")
 
     def __str__(self):
         return self.name
     
 
-class Librarian(models.Model):
+class Librarian_model(models.Model):
     name = models.CharField(max_length=200)
-    library = models.OneToOneField(Library, on_delete=models.CASCADE, related_name="librarians")
+    library = models.OneToOneField(Library_Model, on_delete=models.CASCADE, related_name="librarian_models")
 
     def __str__(self):
         return self.name
