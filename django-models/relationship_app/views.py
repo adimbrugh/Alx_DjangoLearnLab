@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from .models import Book
 from .models import Library
-from django.views.generic import DetailView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -20,7 +20,7 @@ def list_books(request):
 
 
 
-class Library(DetailView):
+class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
