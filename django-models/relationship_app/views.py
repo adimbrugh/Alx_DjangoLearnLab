@@ -1,13 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
-from django.views.generic import DetailView
-from .models import Library
+
 from .models import Book
+from .models import Library
+from django.views.generic import DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .models import UserProfile
@@ -20,7 +20,7 @@ def list_books(request):
 
 
 
-class LibraryDetailView(DetailView):
+class Library(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
