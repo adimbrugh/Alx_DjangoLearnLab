@@ -11,6 +11,7 @@ def get_books_by_author(author_name):
     except Author.DoesNotExist:
         return []
 
+
 # List all books in a specific library
 def get_books_in_library(library_name):
     try:
@@ -18,6 +19,7 @@ def get_books_in_library(library_name):
         return library.books.all()
     except Library.DoesNotExist:
         return []
+
 
 # Retrieve the librarian for a specific library
 def get_librarian_for_library(library_name):
