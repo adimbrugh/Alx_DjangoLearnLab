@@ -74,3 +74,17 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username 
+    
+
+#custom permissions in the model’s
+class MyModel(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view MyModel"),
+            ("can_create", "Can create MyModel"),
+            ("can_edit", "Can edit MyModel"),
+            ("can_delete", "Can delete MyModel"),
+        ]
