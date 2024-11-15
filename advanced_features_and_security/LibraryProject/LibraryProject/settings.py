@@ -25,17 +25,8 @@ SECRET_KEY = 'django-insecure-f(d0bb5(g49n_gkjal2+6m4et=rexm3d^#-)mce#*kvki@x+ac
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
-
-
-# Prevent XSS by enabling browser's XSS protection
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
-SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent content sniffing
-
-# Enforce secure cookies
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
 
 
 CSP_DEFAULT_SRC = ("'self'",)
@@ -50,6 +41,15 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000  # Enforce HTTPS for 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
 SECURE_HSTS_PRELOAD = True  # Allow the domain to be preloaded in browsers
+
+# Enforce secure cookies
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Prevent XSS by enabling browser's XSS protection
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent content sniffing
 
 
 
