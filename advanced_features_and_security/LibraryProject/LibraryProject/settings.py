@@ -43,6 +43,16 @@ CSP_SCRIPT_SRC = ("'self'", 'https://trusted-scripts.example.com')
 CSP_STYLE_SRC = ("'self'", 'https://trusted-styles.example.com')
 
 
+# Redirect all HTTP traffic to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # Enforce HTTPS for 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow the domain to be preloaded in browsers
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
