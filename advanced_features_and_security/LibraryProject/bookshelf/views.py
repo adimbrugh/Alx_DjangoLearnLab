@@ -46,9 +46,6 @@ def book_list(request):
 
 
 
-
-
-
 from django.shortcuts import render
 from .forms import SearchForm
 from .models import Book
@@ -71,14 +68,15 @@ def search_books_with_form(request):
 
 
 
+from django.shortcuts import render
 from .forms import BookSearchForm
+from .models import Book
 
 def search_books(request):
-    if request.method == "GET":
-        form = BookSearchForm(request.GET)
-        if form.is_valid():
-            title = form.cleaned_data['title']
+    books = []
+    form = BookSearchForm(request.GET or None)
+    if form.is_valid():
+        title = form.cleaned_data.get('title')
+        if title:
             books = Book.objects.filter(title__icontains=title)
-        else:
-            books = Book.objects.none()
-    return render(request, 'bookshelf/book_list.html', {'books': books, 'form': form})
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
