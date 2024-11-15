@@ -1,3 +1,5 @@
+
+
 from django import forms
 
 class BookSearchForm(forms.Form):
@@ -6,5 +8,3 @@ class BookSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={'placeholder': 'Search by title'})
     )
-
-
