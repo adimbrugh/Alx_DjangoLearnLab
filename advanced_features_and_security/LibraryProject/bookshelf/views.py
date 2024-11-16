@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
-from .forms import BookSearchForm
+from .forms import ExampleForm
 from .models import MyModel
 from .models import Book
 
@@ -47,7 +47,7 @@ def book_list(request):
 
 def search_books(request):
     books = []
-    form = BookSearchForm(request.GET or None)
+    form = ExampleForm(request.GET or None)
     if form.is_valid():
         title = form.cleaned_data.get('title')
         if title:
