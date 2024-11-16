@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
+from .forms import BookSearchForm
 from .models import MyModel
 from .models import Book
 
@@ -43,14 +44,6 @@ def book_list(request):
     return render(request, 'bookshelf/book_list.html', {'books': books})
 
 
-
-
-
-
-from django.shortcuts import render
-from .forms import BookSearchForm
-from .models import Book
-from .forms import ExampleForm
 
 def search_books(request):
     books = []
