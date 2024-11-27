@@ -6,7 +6,7 @@ from .models import Author, Book
 
 # Serializer for the Book model
 # Includes a custom validation method to ensure publication_year is not in the future
-class BookSerilaizer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
@@ -26,7 +26,7 @@ class BookSerilaizer(serializers.ModelSerializer):
 # Serializer for the Author model
 # Includes a nested BookSerializer to serialize related books dynamically
 class AuthorSerializer(serializers.ModelSerializer):
-    books = BookSerilaizer(many = True, read_only = True) # Nested serializer for related books
+    books = BookSerializer(many = True, read_only = True) # Nested serializer for related books
 
     class Meta:
         model = Author
