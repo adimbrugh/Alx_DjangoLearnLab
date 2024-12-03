@@ -1,6 +1,5 @@
 
 
-
 from .views import (
     PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 )
@@ -8,6 +7,7 @@ from django.contrib.auth import views as auth_views
 from .views import PostByTagListView
 from django.urls import path
 from . import views
+
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),

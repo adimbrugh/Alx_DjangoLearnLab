@@ -7,7 +7,6 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -17,7 +16,6 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
-
 
 @login_required
 def profile(request):
@@ -94,8 +92,6 @@ from django.views.generic.edit import CreateView
 from .models import Post, Comment
 from .forms import CommentForm
 
-
-
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
@@ -111,8 +107,6 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # Redirect to the post detail view
         return self.object.post.get_absolute_url()
-
-
 
 @login_required
 def add_comment(request, post_id):
@@ -152,6 +146,9 @@ class CommentDeleteView(DeleteView):
 
 
 
+
+
+
 from django.db.models import Q
 
 def search_posts(request):
@@ -165,10 +162,10 @@ def search_posts(request):
         ).distinct()
     return render(request, 'blog/search_results.html', {'query': query, 'results': results})
 
-
 def posts_by_tag(request, tag_name):
     posts = Post.objects.filter(tags__name=tag_name)
     return render(request, 'blog/posts_by_tag.html', {'tag_name': tag_name, 'posts': posts})
+
 
 
 
