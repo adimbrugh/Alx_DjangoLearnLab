@@ -2,11 +2,15 @@
 
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
-from django import forms
-from .models import Post
-from .models import Comment
 from taggit.forms import TagField
 from taggit.forms import TagWidget
+from django.forms import widgets
+from .models import Comment
+from django import forms
+from .models import Post
+
+
+
 
 
 class CustomUserCreationForm(UserChangeForm):
@@ -32,8 +36,6 @@ class CommentForm(forms.ModelForm):
         fields = ['content']
 
 
-from django.forms import widgets
-
 
 tags = forms.CharField(
     widget=widgets.Textarea(attrs={'rows': 3}),
@@ -41,8 +43,6 @@ tags = forms.CharField(
 )
 
 
-from django import forms
-from .models import Post
 
 class PostForm(forms.ModelForm):
     tags = forms.CharField(
