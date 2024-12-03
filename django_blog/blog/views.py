@@ -169,3 +169,21 @@ def search_posts(request):
 def posts_by_tag(request, tag_name):
     posts = Post.objects.filter(tags__name=tag_name)
     return render(request, 'blog/posts_by_tag.html', {'tag_name': tag_name, 'posts': posts})
+
+
+
+
+
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
+from .models import Post, Tag  # Adjust based on your models
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = "blog/post_by_tag_list.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        tag_name = self.kwargs.get('tag_name')
+        tag = get_object_or_404(Tag, name=tag_name)  # Adjust if using django-taggit
+        return Post.objects.filter(tags__name=tag.name)  # Adjust query for your setup
