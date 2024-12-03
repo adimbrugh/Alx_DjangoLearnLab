@@ -89,8 +89,30 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 from .models import Post, Comment
 from .forms import CommentForm
+
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/add_comment.html'
+
+    def form_valid(self, form):
+        # Set the post and author for the comment
+        post = get_object_or_404(Post, pk=self.kwargs['post_id'])
+        form.instance.post = post
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect to the post detail view
+        return self.object.post.get_absolute_url()
+
+
 
 @login_required
 def add_comment(request, post_id):
