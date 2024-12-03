@@ -1,0 +1,11 @@
+<h2>Comments</h2>
+{% for comment in post.comments.all %}
+    <p>{{ comment.author }} said: {{ comment.content }}</p>
+    {% if comment.author == user %}
+        <a href="{% url 'edit_comment' comment.id %}">Edit</a>
+        <a href="{% url 'delete_comment' comment.id %}">Delete</a>
+    {% endif %}
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+<a href="{% url 'add_comment' post.id %}">Add Comment</a>
