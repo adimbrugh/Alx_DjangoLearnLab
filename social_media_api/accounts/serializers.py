@@ -21,9 +21,10 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+
 # User serializer for registration
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    serializers.CharField(write_only=True)
 
     class Meta:
         model = get_user_model()  # Refers to the custom user model
