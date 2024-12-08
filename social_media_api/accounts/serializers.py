@@ -24,8 +24,8 @@ from django.utils.translation import gettext_lazy as _
 
 # User serializer for registration
 class RegisterSerializer(serializers.ModelSerializer):
-    serializers.CharField()
-    password = serializers.CharField(write_only=True)
+    serializers.CharField(write_only=True)
+    #password = serializers.CharField(write_only=True)
 
     class Meta:
         model = get_user_model()  # Refers to the custom user model
