@@ -14,9 +14,9 @@ from .models import CustomUser
 from .serializers import CustomUserSerializer
 from .serializers import RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
-#from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
+from rest_framework import generics, permissions
 
 
 
@@ -70,7 +70,6 @@ class LoginView(APIView):
 
 
 
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def follow_user(request, user_id):
@@ -87,30 +86,18 @@ def unfollow_user(request, user_id):
 
 
 
-
-
-from rest_framework import generics, permissions
-from .models import CustomUser
-from .serializers import CustomUserSerializer
-
 class UserListView(generics.GenericAPIView):
-    """
-    A view to list all users.
-    """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests to list users.
-        """
+
         users = self.get_queryset()
         serializer = self.get_serializer(users, many=True)
         return Response(serializer.data)
 
 
-from .models import CustomUser
 
 class UserDetailView(generics.RetrieveAPIView):
     queryset = CustomUser.objects.all()

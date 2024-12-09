@@ -3,12 +3,13 @@ from django.shortcuts import render
 # Create your views here.
 
 
-# notifications/views.py
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Notification
+
+
 
 class NotificationListView(APIView):
     permission_classes = [IsAuthenticated]
@@ -22,8 +23,6 @@ class NotificationListView(APIView):
         } for notification in notifications]
 
         return Response(notifications_data)
-
-
 
 
 
