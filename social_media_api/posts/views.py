@@ -44,9 +44,30 @@ class CommentViewSet(viewsets.ModelViewSet):
 class FeedViewSet(ViewSet):
     queryset = Post.objects.all()  # Add this if not present
     serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
 
     def list(self, request):
         followed_users = request.user.following.all()
         posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
         serializer = self.serializer_class(posts, many=True)
+        return Response(serializer.data)
+    
+
+
+
+    
+
+
+    def get(self, request, *args, **kwargs):
+        # Get the currently authenticated user
+        user = request.user
+        
+        # Fetch the users the authenticated user is following
+        following_users = user.following.all()  # Adjust this based on your model's `related_name`
+        
+        # Fetch posts authored by those users, ordered by creation date
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+        
+        # Serialize the posts
+        serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
