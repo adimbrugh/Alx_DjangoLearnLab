@@ -84,3 +84,35 @@ def unfollow_user(request, user_id):
     user_to_unfollow = get_object_or_404(CustomUser, id=user_id)
     request.user.following.remove(user_to_unfollow)
     return Response({"detail": f"You have unfollowed {user_to_unfollow.username}."})
+
+
+
+
+
+from rest_framework import generics, permissions
+from .models import CustomUser
+from .serializers import CustomUserSerializer
+
+class UserListView(generics.GenericAPIView):
+    """
+    A view to list all users.
+    """
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests to list users.
+        """
+        users = self.get_queryset()
+        serializer = self.get_serializer(users, many=True)
+        return Response(serializer.data)
+
+
+from .models import CustomUser
+
+class UserDetailView(generics.RetrieveAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]

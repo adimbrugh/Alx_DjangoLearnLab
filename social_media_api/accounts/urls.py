@@ -17,7 +17,7 @@ urlpatterns = [] + router.urls
 """
 
 from django.urls import path
-from .views import RegisterView, LoginView, UserProfileView
+from .views import RegisterView, LoginView, UserProfileView, UserListView
 from . import views
 
 urlpatterns = [
@@ -26,4 +26,5 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='profile'), # User profile management
     path('follow/<int:user_id>/', views.follow_user, name='follow-user'),
     path('unfollow/<int:user_id>/', views.unfollow_user, name='unfollow-user'),
+    path('users/', UserListView.as_view(), name='user-list')
 ]
