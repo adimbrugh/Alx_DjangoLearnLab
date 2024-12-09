@@ -3,17 +3,20 @@ from django.shortcuts import render
 # Create your views here.
 
 
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from django.contrib.auth import authenticate
-#from .models import CustomUser
+from .models import CustomUser
 from .serializers import CustomUserSerializer
 from .serializers import RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 #from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from rest_framework.decorators import api_view, permission_classes
+from django.shortcuts import get_object_or_404
 
 
 
@@ -64,3 +67,20 @@ class LoginView(APIView):
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def follow_user(request, user_id):
+    user_to_follow = get_object_or_404(CustomUser, id=user_id)
+    request.user.following.add(user_to_follow)
+    return Response({"detail": f"You are now following {user_to_follow.username}."})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def unfollow_user(request, user_id):
+    user_to_unfollow = get_object_or_404(CustomUser, id=user_id)
+    request.user.following.remove(user_to_unfollow)
+    return Response({"detail": f"You have unfollowed {user_to_unfollow.username}."})
