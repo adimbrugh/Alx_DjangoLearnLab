@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@sd#i2t#o409^3f9bq1sz_!5^6d$u7o6bf3y88x7@dnwst$_0s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -81,8 +81,13 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': BASE_DIR / 'db.mysql',
+        'NAME': 'social_media_api',
+        'USER': 'your-db-user',
+        'PASSWORD': 'your-db-password',
+        'HOST': 'your-db-host',
+        'PORT': 'your-db-port',
     }
 }
 
@@ -128,8 +133,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.CustomUser' #new
+#****************************************************************************************
 
+AUTH_USER_MODEL = 'accounts.CustomUser' 
 
 REST_FRAMEWORK = {
     #'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -142,3 +148,10 @@ REST_FRAMEWORK = {
 #SIMPLE_JWT = {
 #    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
 #}
+
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
