@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os #new
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #new
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -149,9 +151,56 @@ REST_FRAMEWORK = {
 #    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
 #}
 
+
+#Enable Browser XSS Protection:
 SECURE_BROWSER_XSS_FILTER = True
+
+#Set X-Frame-Options
 X_FRAME_OPTIONS = 'DENY'
+
+#Enable Content Type Sniffing Protection:
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+#Redirect HTTP to HTTPS (if using HTTPS):
 SECURE_SSL_REDIRECT = True
+
+#Secure Cookies:
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+#Environment Variables
+#For sensitive configurations (e.g., SECRET_KEY), use environment variables instead of hardcoding them in settings.py. You can access them using:
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
+
+
+
+
+
+
+"""
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = 'https://your-bucket-name.s3.amazonaws.com/static/'
+
+# Media files (uploads)
+MEDIA_URL = 'https://your-bucket-name.s3.amazonaws.com/media/'
+
+# AWS S3 settings
+AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
+AWS_S3_REGION_NAME = 'your-region'  # e.g., 'us-east-1'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')  # Use environment variables for sensitive data
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# Static files storage
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Media files storage
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Collect static files to S3
+STATIC_ROOT = 'static/'
+MEDIA_ROOT = 'media/'
+
+
+"""
